@@ -1,0 +1,94 @@
+<h1 style="text-align: left;"><span style="font-size: 36pt;"><strong><span
+                style="text-decoration: underline;"><span
+                    style="background-color: rgb(206, 212, 217);"><span
+                        style="color: rgb(45, 194, 107); text-decoration: underline;">Green</span>house
+                    Controller</span></span></strong></span></h1>
+<p>This ReadMe provides an overview of the Project.</p>
+<p>For information on setting up, using, and maintaining your own Arduino-based
+    Greenhouse Controller, visit the appropriate section linked in the Table of
+    Contents [TODO: hyperlink].</p>
+<p>&nbsp;</p>
+<h2>1) Project Overview</h2>
+<h4>Background</h4>
+<p>Inconsistent weather is the bane of gardeners everywhere. In many areas of
+    the United States (particularly in the northern half of Gulf Coast states)
+    seasonal transitions are marred by unpredictable deviations from expected
+    weather trends. A week-long cold snap will interrupt months of warming
+    spring temperatures, extreme heat spells can amplify the effects of
+    inconsistent summer rain, days of violent winds punctuate otherwise
+    pleasant fall forecasts, and slow-moving warm fronts trick perennial plants
+    into an early emergence before a swift demise in the next frost. These
+    climatic disturbances, while transitory in nature, nonetheless considerably
+    shorten an otherwise-viable growing season and complicate garden planning.
+    Greenhouses can be used to prevent the damage sudden weather changes can
+    cause, but their use invites its own unique challenges.&nbsp;</p>
+<p>The primary difficulties of growing plants in greenhouses are related to
+    appropriately accommodating these changes in weather. Unheated greenhouses
+    can only defend against mild cold spells (40&ndash;50˚F) for a matter of
+    hours, and even moderate warmth (70&ndash;80 ˚F) with sunlight can induce
+    deadly temperatures (&ge;100˚F) in an unvented greenhouse. To successfully
+    mitigate these challenges, greenhouses actually require <em>more</em>
+    attention and discipline than one might expect. In an effort to achieve
+    relatively thoughtless management of greenhouse parameters, this project
+    uses the open-source Arduino platform to monitor and control a variety of
+    sensors and actuators.&nbsp;</p>
+<h4>Standard Features</h4>
+<p style="padding-left: 40px;">&bull; Monitor and record internal and external
+    environmental parameters, including: Temperature, Humidity, Daylight
+    Intensity, and Soil Moisture</p>
+<p style="padding-left: 80px;">&ndash; Easily replaceable and inexpensive
+    open-source sensors&nbsp;</p>
+<p style="padding-left: 40px;">&bull; Show current and historical sensor and
+    actuation data on a low-power E-Ink display inside the greenhouse</p>
+<p style="padding-left: 40px;">&bull; Automatic management of conditions using
+    Heaters, Ventilation Fans, and Supplemental Lighting</p>
+<p style="padding-left: 80px;">&ndash; Alarm activation when the environment is
+    outside the user-determined specifications</p>
+<p style="padding-left: 40px;">&bull; Optional temporary or persistent manual
+    control of all conditions, sensors, and actuators</p>
+<h4>Advanced Features</h4>
+<p style="padding-left: 40px;">&bull; Remote access and control of the system
+    over WiFi through a standard IoT protocol</p>
+<p style="padding-left: 40px;">&bull; Forecast-informed activation of actuators
+    to preemptively compensate for impending weather changes</p>
+<p style="padding-left: 40px;">&bull; Solar-charged backup battery power, with
+    options for setting it up for sensor-only monitoring or fully-supported
+    control (heaters, fans, etc)</p>
+<p>&nbsp;</p>
+<h2>2) Required Parts and Materials</h2>
+<p>The list below is a basic bill of materials for this project intended to
+    help Users determine the feasibility of undertaking this project.</p>
+<p>More information on Parts and Materials (including datasheets, alternative
+    options, and cost breakdowns) can be found in the Parts_and_Materials
+    [TODO: hyperlink] file.</p>
+<h4 style="padding-left: 40px;">Sensors</h4>
+<p style="padding-left: 80px;">&bull; DHT-22 (combination temperature &amp;
+    humidity sensor)</p>
+<p style="padding-left: 80px;">&bull; XXXX (daylight-sensing)</p>
+<p style="padding-left: 80px;">&bull; XXXX (capacitive soil moisture sensor)
+</p>
+<h4 style="padding-left: 40px;">Actuators</h4>
+<p style="padding-left: 80px;">&bull; XX-inch Fan&nbsp;</p>
+<p style="padding-left: 80px;">&bull; XX-watt heater (calculated to greenhouse
+    size?)</p>
+<p style="padding-left: 80px;">&bull; XX (water circulation)</p>
+<h4 style="padding-left: 40px;">Other Materials</h4>
+<p style="padding-left: 80px;">&bull; xY sensor housings</p>
+<p style="padding-left: 80px;">&bull; Controller housing</p>
+<p style="padding-left: 80px;">&bull; other</p>
+<p>&nbsp;</p>
+<h2>3) Other General Information</h2>
+<p>[TODO: info about greenhouses?, sizing the controller system, etc]</p>
+<p>&nbsp;</p>
+<ol>
+    <li>Copy this file and <a href="toc.cchtml">toc.cchtml</a> to a
+        newly-created directory of your choice.</li>
+    <li>Browse to the directory you just created using the CodeChat Editor's
+        web-based file browser.</li>
+    <li>Open this file and start editing. (If you don't want a readme file, you
+        may delete it; only&nbsp;<a href="toc.cchtml">toc.cchtml</a>&nbsp; is
+        required for a CodeChat Editor project.) You may add any source files
+        you like in this directory or in any subdirectory. When you add or
+        delete a file, update the <a href="toc.cchtml">table of contents</a> to
+        make navigation easier.</li>
+</ol>
