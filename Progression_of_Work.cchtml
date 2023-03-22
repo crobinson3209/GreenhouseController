@@ -1,0 +1,53 @@
+<h1 style="text-align: left;"><span style="font-size: 36pt;"><strong><span
+                style="text-decoration: underline;"><span
+                    style="background-color: rgb(206, 212, 217);"><span
+                        style="color: rgb(45, 194, 107); text-decoration: underline;">Things
+                        To-Do<br></span></span></span></strong></span></h1>
+<h2>Phase I</h2>
+<p>Project Should:</p>
+<p style="padding-left: 40px;">&bull; Read Temp, Humidity, and Light Intensity
+</p>
+<p style="padding-left: 40px;">&bull; Display values on 4x20 LCD screen</p>
+<p style="padding-left: 40px;">&bull; Make changes to the State of actuator
+    pins (high/low/pwm) based on set values (pre-determined in code)</p>
+<p>&nbsp;</p>
+<h2>Phase II</h2>
+<p>Project Should:</p>
+<p style="padding-left: 40px;">&bull; Have all features from previous phase
+    plus,</p>
+<p style="padding-left: 40px;">&bull; Convert LCD display to a menu allowing
+    set values to be changed by the user</p>
+<p style="padding-left: 40px;">&bull; Use a Real-Time Clock (RTC) module to
+    keep track of time</p>
+<p style="padding-left: 40px;">&bull;</p>
+<p style="padding-left: 40px;">&nbsp;</p>
+<h2>Phase III</h2>
+<p>Project Should:</p>
+<p style="padding-left: 40px;">&bull; Have all features from previous phases
+    plus,</p>
+<p style="padding-left: 40px;">&bull; Implement a datapoint class that saves
+    snapshots of all Sensor and State values at recorded time points</p>
+<p style="padding-left: 40px;">&bull; Save datapoint timestamps to a list that
+    is saved to an SD card</p>
+<p style="padding-left: 40px;">&nbsp;</p>
+<h2>Phase IV</h2>
+<p>Project Should:</p>
+<p style="padding-left: 40px;">&bull; Have all features from previous phases
+    plus,</p>
+<p style="padding-left: 40px;">&bull;&nbsp;</p>
+<p style="padding-left: 40px;">&bull;&nbsp;</p>
+<p>&nbsp;</p>
+<h2>Phase V - Advanced Features</h2>
+<p>Project Should:</p>
+<p style="padding-left: 40px;">&bull; Have all features from previous phases
+    plus,</p>
+<p style="padding-left: 40px;">&bull; Pull weather data from Weather
+    Underground to make informed changes to set points (raising temperature in
+    anticipation of a freeze, etc)</p>
+<p style="padding-left: 40px;">&bull; Output weather and greenhouse data to
+    e-ink display and allow changes to history view (daily, weekly, monthly,
+    yearly trends)</p>
+<p style="padding-left: 40px;">&bull; Implement solar-charged and
+    battery-powered backup source</p>
+<p style="padding-left: 40px;">&bull;&nbsp;</p>
+<p>&nbsp;</p>
