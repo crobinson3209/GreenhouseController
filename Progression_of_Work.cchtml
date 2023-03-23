@@ -9,26 +9,33 @@
 </p>
 <p style="padding-left: 40px;">&bull; Display values on 4x20 LCD screen</p>
 <p style="padding-left: 40px;">&bull; Make changes to the State of actuator
-    pins (high/low/pwm) based on set values (pre-determined in code)</p>
+    pins (high/low/pwm) based on set-point values (pre-determined in code)</p>
 <p>&nbsp;</p>
 <h2>Phase II</h2>
 <p>Project Should:</p>
 <p style="padding-left: 40px;">&bull; Have all features from previous phase
     plus,</p>
-<p style="padding-left: 40px;">&bull; Convert LCD display to a menu allowing
-    set values to be changed by the user</p>
+<p style="padding-left: 40px;">&bull; Implement a menu for the LCD display to
+    allow set-point values to be changed by the user</p>
 <p style="padding-left: 40px;">&bull; Use a Real-Time Clock (RTC) module to
     keep track of time</p>
 <p style="padding-left: 40px;">&bull;</p>
 <p style="padding-left: 40px;">&nbsp;</p>
 <h2>Phase III</h2>
 <p>Project Should:</p>
-<p style="padding-left: 40px;">&bull; Have all features from previous phases
-    plus,</p>
-<p style="padding-left: 40px;">&bull; Implement a datapoint class that saves
-    snapshots of all Sensor and State values at recorded time points</p>
-<p style="padding-left: 40px;">&bull; Save datapoint timestamps to a list that
-    is saved to an SD card</p>
+<ul>
+    <li>Have all features from previous phases plus,</li>
+    <li>Implement a datapoint class in which snapshots of all Sensor and State
+        values are recorded, along with the time data was recorded</li>
+    <li>Save datapoints to a rolling list that is saved to an SD card
+        <ul>
+            <li>Keep every timepoint of the day</li>
+            <li>Keep every hour of each day for 7 days</li>
+            <li>keep every ave</li>
+        </ul>
+    </li>
+</ul>
+<p style="padding-left: 40px;">&nbsp;</p>
 <p style="padding-left: 40px;">&nbsp;</p>
 <h2>Phase IV</h2>
 <p>Project Should:</p>
