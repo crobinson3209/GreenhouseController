@@ -44,10 +44,17 @@
 
 
 // ___Libraries___
+  // on the use of "xxx.h" versus <xxx.h>:
+      // < > : forces compiler to search default #include directory
+      // " " : tells compiler to search current working directory, then default directory if first search fails
   #include "Wire.h"
+  #include "SPI.h"
+  #include "Adafruit_Sensor.h"
   #include "RTClib.h"
   #include "LiquidCrystal_I2C.h"
   #include "DHT.h"
+  #include "DHT_U.h"
+  #include "Adafruit_BME280.h"
   #include "DataPoint.h"
 //******************************
 
@@ -61,12 +68,20 @@
   // set up DHT1
   #define DHT1_PIN 12     // Digital pin connected to the DHT sensor    MEGA:12 / UNO:
   #define DHT1_TYPE DHT22   // DHT 22  (AM2302), AM2321    
-  DHT dht1(DHT1_PIN, DHT1_TYPE); // Initialize DHT sensor 1
+  DHT_Unified dht1(DHT1_PIN, DHT1_TYPE); // Initialize DHT sensor 1
 
   // set up DHT2
   #define DHT2_PIN 13     // Digital pin connected to the DHT sensor    MEGA:13 / UNO:
   #define DHT2_TYPE DHT22   // DHT 22  (AM2302), AM2321    
-  DHT dht2(DHT2_PIN, DHT2_TYPE); // Initialize DHT sensor 2
+  DHT_Unified dht2(DHT2_PIN, DHT2_TYPE); // Initialize DHT sensor 2
+
+  uint32_t dht1_delayMS; // create variable to hold delay time for DHTs
+  uint32_t dht2_delayMS; // create variable to hold delay time for DHTs
+
+  bool dht1_temp_success = false;
+  bool dht1_hum_success = false;
+  bool dht2_temp_success = false;
+  bool dht2_hum_success = false;
 //******************************
 
 
@@ -89,9 +104,9 @@
 
 
 // ___Global Variables___
-  float minTemp, setTemp, maxTemp;
+  float minTempF, setTempF, maxTempF, minTempC, maxTempC, setTempC;
   float minHum, setHum, maxHum;
-  float HUM1, HUM2, TEMP1, TEMP2, TEMPF1, TEMPF2;
+  float g_dht1_hum, g_dht2_hum, g_dht1_tempc, g_dht2_tempc;
   bool circulatingFAN_STATE, ventFAN_STATE, HEAT1_STATE, LIGHT1_STATE;
 //******************************
 
@@ -106,22 +121,72 @@ void setup()
   // Startup delay and Serial begin  
     delay(3000); // power-up safety delay
     Serial.begin(9600);
-
-
   //******************************
+
 
   //___LCD___
     Serial.println(F("Initializing LCD..."));
     lcd.init();  //initialize the lcd
     lcd.backlight();  //open the backlight 
-  
   //******************************
+
 
   //___DHTs___
     Serial.println(F("Initializing DHT sensors 1 & 2..."));
-    dht1.begin(); //initiallize dht1
-    dht2.begin(); //initialize dht2
-  
+
+    // initialize dht sensors and create sensor objects from unified Adafruit_Sensor library
+      dht1.begin(); //initiallize dht1
+      sensor_t sensor_dht1; // create sensor object for dht1
+      dht2.begin(); //initialize dht2
+      sensor_t sensor_dht2; // create sensor object for dht2
+
+    // get sensor data
+      dht1.temperature().getSensor(&sensor_dht1);
+      dht1.humidity().getSensor(&sensor_dht1);
+      dht2.temperature().getSensor(&sensor_dht2);
+      dht2.humidity().getSensor(&sensor_dht2);
+
+      dht1_delayMS = sensor_dht1.min_delay / 1000; // set delay between sensor readings based on sensor details
+      dht2_delayMS = sensor_dht2.min_delay / 1000; // set delay between sensor readings based on sensor details
+
+    // print the sensor data retrieved above
+        Serial.println(F("------------------------------------"));
+        Serial.println(F("DHT Sensor #1:"));
+        Serial.println(F("Temperature Sensor"));
+        Serial.print  (F("Sensor Type: ")); Serial.println(sensor_dht1.name);
+        Serial.print  (F("Driver Ver:  ")); Serial.println(sensor_dht1.version);
+        Serial.print  (F("Unique ID:   ")); Serial.println(sensor_dht1.sensor_id);
+        Serial.print  (F("Max Value:   ")); Serial.print(sensor_dht1.max_value); Serial.println(F("°C"));
+        Serial.print  (F("Min Value:   ")); Serial.print(sensor_dht1.min_value); Serial.println(F("°C"));
+        Serial.print  (F("Resolution:  ")); Serial.print(sensor_dht1.resolution); Serial.println(F("°C"));
+        Serial.println(F("Humidity Sensor"));
+        Serial.print  (F("Sensor Type: ")); Serial.println(sensor_dht1.name);
+        Serial.print  (F("Driver Ver:  ")); Serial.println(sensor_dht1.version);
+        Serial.print  (F("Unique ID:   ")); Serial.println(sensor_dht1.sensor_id);
+        Serial.print  (F("Max Value:   ")); Serial.print(sensor_dht1.max_value); Serial.println(F("%"));
+        Serial.print  (F("Min Value:   ")); Serial.print(sensor_dht1.min_value); Serial.println(F("%"));
+        Serial.print  (F("Resolution:  ")); Serial.print(sensor_dht1.resolution); Serial.println(F("%"));
+        Serial.println(F("------------------------------------"));
+        Serial.println(F(" "));
+        Serial.println(F("------------------------------------"));
+        Serial.println(F("DHT Sensor #2:"));
+        Serial.println(F("Temperature Sensor"));
+        Serial.print  (F("Sensor Type: ")); Serial.println(sensor_dht2.name);
+        Serial.print  (F("Driver Ver:  ")); Serial.println(sensor_dht2.version);
+        Serial.print  (F("Unique ID:   ")); Serial.println(sensor_dht2.sensor_id);
+        Serial.print  (F("Max Value:   ")); Serial.print(sensor_dht2.max_value); Serial.println(F("°C"));
+        Serial.print  (F("Min Value:   ")); Serial.print(sensor_dht2.min_value); Serial.println(F("°C"));
+        Serial.print  (F("Resolution:  ")); Serial.print(sensor_dht2.resolution); Serial.println(F("°C"));
+        Serial.println(F("Humidity Sensor"));
+        Serial.print  (F("Sensor Type: ")); Serial.println(sensor_dht2.name);
+        Serial.print  (F("Driver Ver:  ")); Serial.println(sensor_dht2.version);
+        Serial.print  (F("Unique ID:   ")); Serial.println(sensor_dht2.sensor_id);
+        Serial.print  (F("Max Value:   ")); Serial.print(sensor_dht2.max_value); Serial.println(F("%"));
+        Serial.print  (F("Min Value:   ")); Serial.print(sensor_dht2.min_value); Serial.println(F("%"));
+        Serial.print  (F("Resolution:  ")); Serial.print(sensor_dht2.resolution); Serial.println(F("%"));
+        Serial.println(F("------------------------------------"));
+
+        
   //******************************
 
   /*
@@ -139,7 +204,6 @@ void setup()
   //******************************
   */
 
-
   //___RELAYS___
     pinMode(HEAT1_PIN, OUTPUT);
     pinMode(circulatingFAN_PIN, OUTPUT);
@@ -149,13 +213,32 @@ void setup()
 
 
   // Set Environmental Parameter SetPoints (hard-coded now, TODO: make editable with menu on LCD)
-    
+    // Temperature
+      minTempF = 50;
+      maxTempF = 80;
+      setTempF = 75;
+
+      minTempC = (minTempF - 32) * (5/9);
+      maxTempC = (maxTempF - 32) * (5/9);
+      setTempC = (setTempF - 32) * (5/9);
+      
+    // Humidity, in percent
+      minHum = 65;
+      maxHum = 85;
+      setHum = 75;
+      
+    // States
+      circulatingFAN_STATE = false;
+      ventFAN_STATE = false;
+      HEAT1_STATE = false;
+      LIGHT1_STATE = false; 
+      
+  //******************************
+
 }
 
+
 //_____________________________________________________________________________
-
-
-
 
 void loop() 
 {
@@ -172,7 +255,7 @@ void loop()
     HEAT1_STATE = false;
   }
   */
-
+  // check if time elasped 
   readSensors();
   setStates();
   takeAction();
@@ -188,41 +271,78 @@ void loop()
 
 void readSensors()
 {
-  readDHTs(); // read temp and humidity
+  readDHTs(); // read temp and humidity from DHT22 sensors
+  readBME280s(); // read temp, humidity, and pressure from BME280 sensors
   readLights(); // read light level
+  // readMoisture();
 }
 
 
 void readDHTs()
 {
-    //___DHTs___  
-    delay(2000);  // Wait a few seconds between measurements.
-
   //  if(updateDHTs(); // updateDHT values if time since last update > 2sec
     // Reading temperature or humidity takes about 250 milliseconds!
     // Sensor readings may also be up to 2 seconds 'old' (it's a very slow sensor)
-    float hum1 = dht1.readHumidity();  // Read humidity
-    float temp1 = dht1.readTemperature();  // Read temperature as Celsius (the default)
-    float tempf1 = dht1.readTemperature(true); // Read temperature as Fahrenheit (isFahrenheit = true)
+  delay(dht1_delayMS);
 
-    float hum2 = dht2.readHumidity(); // Read humidity
-    float temp2 = dht2.readTemperature();  // Read temperature as Celsius (the default) 
-    float tempf2 = dht2.readTemperature(true); // Read temperature as Fahrenheit (isFahrenheit = true)
+  // get temp and humidity events
+    sensors_event_t event_dht1;
+    sensors_event_t event_dht2;
 
-
-  // Check if any reads failed. if any values are not a number, alert user
-    if (isnan(hum1) || isnan(temp1) || isnan(tempf1)) 
-      { Serial.println(F("Failed to read from DHT sensor #1!")); }
-    if (isnan(hum2) || isnan(temp2) || isnan(tempf2))
-      { Serial.println(F("Failed to read from DHT sensor #2!")); }
-
-    float hif1 = dht1.computeHeatIndex(tempf1, hum1);  // Compute heat index in Fahrenheit (the default)
-    float hif2 = dht2.computeHeatIndex(tempf2, hum2);  // Compute heat index in Fahrenheit (the default)
-
-    float humAvg = (hum1 + hum2) / 2;
-    float tempfAvg = (tempf1 + tempf2) / 2;
+  // read DHTs and set booleans for successful read
+    // DHT1
+    dht1.temperature().getEvent(&event_dht1);
+      if (isnan(event_dht1.temperature)) 
+      {
+         Serial.println(F("Error reading DHT1 Temperature!"));
+         dht1_temp_success = false;
+      }
+      else 
+      { 
+        dht1_temp_success = true; 
+        g_dht1_tempc = event_dht1.temperature;
+      }
+    dht1.humidity().getEvent(&event_dht1);
+      if (isnan(event_dht1.relative_humidity)) 
+      {
+         Serial.println(F("Error reading DHT1 Humidity!"));
+         dht1_hum_success = false;
+      }
+      else 
+      { 
+        dht1_hum_success = true; 
+        g_dht1_hum = event_dht1.relative_humidity;
+      }
+      
+    // DHT2
+    dht2.temperature().getEvent(&event_dht2);
+      if (isnan(event_dht2.temperature)) 
+      {
+         Serial.println(F("Error reading DHT2 Temperature!"));
+         dht2_temp_success = false;
+      }
+      else 
+      { 
+        dht2_temp_success = true; 
+        g_dht2_tempc = event_dht2.temperature;
+      }
+    dht2.humidity().getEvent(&event_dht2);
+      if (isnan(event_dht2.relative_humidity)) 
+      {
+         Serial.println(F("Error reading DHT2 Humidity!"));
+         dht2_hum_success = false;
+      }
+      else 
+      { 
+        dht2_hum_success = true; 
+        g_dht2_hum = event_dht1.relative_humidity;
+      }
 }
 
+void readBME280s()
+{
+  
+}
 void readLights()
 {
   // nothing here yet
@@ -232,8 +352,17 @@ void readLights()
 
 void setStates()
 {
-  if(
-  
+  // set fan states
+  if( (g_dht1_tempc >= setTempC) && (g_dht2_tempc >= setTempC) )  // TODO: add BME temp reading
+  {
+    // turn on cooling fan until temp is _____?
+    // make sure heat is off 
+      HEAT1_STATE = false;
+  }
+  else
+  {
+    // set heat states
+  }
 }
 
 void takeAction()
@@ -243,34 +372,13 @@ void takeAction()
     digitalWrite(HEAT1_PIN, LOW); // turn off
     delay(1000); // allow time for pin to change
   }
-  else // if HEAT2 should be ON
-  { 
-    digitalWrite(HEAT2_PIN, HIGH); // turn ON
-    delay(1000); // allow time for pin to change
-  }
+
 }
 
 
 void printAll()
 {
-  lcd.setCursor(0,0); // set cursor to column 0, line 0
-  lcd.print(F("H1: "));
-  lcd.print(hum1);
-  lcd.print(F("%"));
-  lcd.setCursor(0,1); // set cursor to column 0, line 1
-  lcd.print(F("T1: "));
-  lcd.print(tempf1);
-  lcd.print((char)223); //prints the degree (˚) symbol
-  lcd.print(F("F"));
-  lcd.setCursor(0,2); // set cursor to column 0, line 0
-  lcd.print(F("H2: "));
-  lcd.print(hum2);
-  lcd.print(F("%"));
-  lcd.setCursor(0,3); // set cursor to column 0, line 1
-  lcd.print(F("T2: "));
-  lcd.print(tempf2);
-  lcd.print((char)223); //prints the degree (˚) symbol
-  lcd.print(F("F"));
+
   
 /*
   Serial.print(F("TimePoint: "));
@@ -281,24 +389,30 @@ void printAll()
   Serial.print(currentTIME.second(), DEC);
   Serial.println();
 */
-  Serial.println(F("Humidity1: "));
-  Serial.print(hum1);
-  Serial.print(F("%  Temperature1: "));
-  Serial.print(temp1);
-  Serial.print(F("°C "));
-  Serial.print(tempf1);
-  Serial.print(F("°F  HeatIndex1: "));
-  Serial.print(hif1);
-  Serial.println(F("°F"));
-  Serial.print(F("Humidity2: "));
-  Serial.print(hum2);
-  Serial.print(F("%  Temperature2: "));
-  Serial.print(temp2);
-  Serial.print(F("°C "));
-  Serial.print(tempf2);
-  Serial.print(F("°F  HeatIndex2: "));
-  Serial.print(hif2);
-  Serial.println(F("°F"));
-  Serial.println(F("Heater on?  "));
-  Serial.print(HEAT1_STATE);
+  // Print DHT Sensor Values
+    // from DHT1
+    if (dht1_temp_success && dht1_hum_success)
+    {
+      Serial.print(F("DHT1 Temperature: "));
+      Serial.print(g_dht1_tempc);
+      Serial.println(F("°C"));
+      Serial.print(F("DHT1 Humidity: "));
+      Serial.print(g_dht1_hum);
+      Serial.println(F("%"));
+    }
+    else { Serial.println(F("Error with DHT1 sensor!")); }
+
+    // from DHT2
+    if (dht2_temp_success && dht2_hum_success)
+    {
+      Serial.print(F("DHT2 Temperature: "));
+      Serial.print(g_dht2_tempc);
+      Serial.println(F("°C"));
+      Serial.print(F("DHT2 Humidity: "));
+      Serial.print(g_dht2_hum);
+      Serial.println(F("%"));
+    }
+    else { Serial.println(F("Error with DHT2 sensor!")); }
+        
+
 }

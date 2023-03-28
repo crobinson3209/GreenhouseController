@@ -2,6 +2,44 @@
 <p>This file provides a table of contents for a CodeChat Editor project.</p>
 <h2>Contents</h2>
 <ol>
-    <li><a href="README.cchtml">Readme</a></li>
-    <li><a href="toc.cchtml">Table of contents</a></li>
+    <li><a href="toc.cchtml">Table of Contents</a></li>
+    <li><a href="README.cchtml">ReadMe</a></li>
+    <li><a href="Progression_of_Work.cchtml">Progression of Work</a></li>
+</ol>
+<h2>Resources</h2>
+<ol>
+    <li><a href="DataSheets">DataSheets</a>
+        <ol>
+            <li>Arduino Microcontroller
+                <ol>
+                    <li>Arduino Uno</li>
+                    <li>Arduino Mega</li>
+                </ol>
+            </li>
+            <li>Sensors
+                <ol>
+                    <li>DHT22
+                        <ol>
+                            <li>Temperature&nbsp;</li>
+                            <li>Relative Humidity</li>
+                        </ol>
+                    </li>
+                    <li>BME280
+                        <ol>
+                            <li>Temperature</li>
+                            <li>Relative Humidity</li>
+                            <li>Atmospheric Pressure</li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li>Other Hardware
+                <ol>
+                    <li>text here</li>
+                </ol>
+            </li>
+        </ol>
+    </li>
+    <li>Schematics</li>
+    <li>text here</li>
 </ol>
