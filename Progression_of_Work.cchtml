@@ -7,7 +7,7 @@
 <p>Project Should:</p>
 <ul>
     <li>Read Temp, Humidity, and Light Intensity</li>
-    <li>Display values on 4x20 LCD screen</li>
+    <li>Print all values to Serial Monitor</li>
     <li>Make changes to the State of actuator pins (high/low/pwm) based on
         set-point values (pre-determined in code)</li>
     <li>Add all sensor datasheets and update ToC accordingly</li>
