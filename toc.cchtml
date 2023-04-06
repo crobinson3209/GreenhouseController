@@ -12,23 +12,54 @@
         <ol>
             <li>Arduino Microcontroller
                 <ol>
-                    <li>Arduino Uno</li>
-                    <li>Arduino Mega</li>
+                    <li>Arduino Uno
+                        <ol>
+                            <li>Adafruit Link: <a
+                                    href="https://docs.arduino.cc/hardware/uno-rev3">https://docs.arduino.cc/hardware/uno-rev3</a>
+                            </li>
+                            <li><a href="ArduinoUnoR3_datasheet">Uno R3
+                                    datasheet</a></li>
+                            <li><a
+                                    href="ATmega328P_datasheet">ATmega328P_datasheet</a>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>Arduino Mega
+                        <ol>
+                            <li>Adafruit Link: <a
+                                    href="https://docs.arduino.cc/hardware/mega-2560">https://docs.arduino.cc/hardware/mega-2560</a>
+                            </li>
+                            <li><a href="ArduinoMegaR3_datasheet">Mega R3
+                                    datasheet</a></li>
+                            <li><a href="ATmega2560_datasheet">ATmega2560
+                                    datasheet</a></li>
+                        </ol>
+                    </li>
                 </ol>
             </li>
             <li>Sensors
                 <ol>
-                    <li>DHT22
+                    <li>Temp &amp; Humidity Only&nbsp;<br>
                         <ol>
-                            <li>Temperature&nbsp;</li>
-                            <li>Relative Humidity</li>
+                            <li><a href="DHT22_datasheet">DHT22</a>
+                                <ol>
+                                    <li>specs</li>
+                                </ol>
+                            </li>
+                            <li><a href="DHT11_datasheet">DHT11</a>
+                                <ol>
+                                    <li>specs</li>
+                                </ol>
+                            </li>
                         </ol>
                     </li>
-                    <li>BME280
+                    <li>Temp, Humidity, and Barometric Pressure
                         <ol>
-                            <li>Temperature</li>
-                            <li>Relative Humidity</li>
-                            <li>Atmospheric Pressure</li>
+                            <li><a href="BME280_datasheet">BME280</a><br>
+                                <ol>
+                                    <li>specs</li>
+                                </ol>
+                            </li>
                         </ol>
                     </li>
                 </ol>
