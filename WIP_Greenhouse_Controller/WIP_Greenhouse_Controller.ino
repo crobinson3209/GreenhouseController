@@ -11,11 +11,7 @@
  *
  *
 *  ______________The Circuit_____________
- * LCD:
- *   GND pin to ground
- *   VCC pin to 5V
- *   SDA pin to SDA/pin 20 on MEGA (or A4 on other) +10kΩ pullup to 5V (same resistor as for RTC)
- *   SCL pin to SCL/pin 21 on MEGA (or A5 on other) +10kΩ pullup to 5V (same resistor as for RTC)
+
  * 
  * DHT22s:
  *   Connect a 10K pullup resistor DHT22 data to  DHT22 5V power for each DHT sensor
@@ -51,16 +47,10 @@
   #include "SPI.h"
   #include "Adafruit_Sensor.h"
   #include "RTClib.h"
-  #include "LiquidCrystal_I2C.h"
   #include "DHT.h"
   #include "DHT_U.h"
   #include "Adafruit_BME280.h"
   #include "DataPoint.h"
-//******************************
-
-
-//____LCD____
-  LiquidCrystal_I2C lcd(0x27,20,4);  // The LCD address is 0x27 (a 20 chars and 4 line display)
 //******************************
 
 
@@ -205,10 +195,10 @@ void setup()
   */
 
   //___RELAYS___
-    pinMode(HEAT1_PIN, OUTPUT);
+    pinMode(heater1_PIN, OUTPUT);
     pinMode(circulatingFAN_PIN, OUTPUT);
     pinMode(ventFAN_PIN, OUTPUT);
-    pinMode(LIGHT1_PIN, OUTPUT);
+    pinMode(light1_PIN, OUTPUT);
   //******************************
 
 
@@ -228,10 +218,10 @@ void setup()
       setHum = 75;
       
     // States
-      circulatingFAN_STATE = false;
-      ventFAN_STATE = false;
-      HEAT1_STATE = false;
-      LIGHT1_STATE = false; 
+      isCFan_ON = false;
+      isVFan_ON = false;
+      isHeater1_ON = false;
+      isLight1_ON = false; 
       
   //******************************
 
@@ -246,13 +236,13 @@ void loop()
   /*
   //___HEAT___  
   if(tempfAvg <= setTemp){
-    digitalWrite(HEAT1_PIN, HIGH);
-    HEAT1_STATE = true;
+    digitalWrite(heater1_PIN, HIGH);
+    isHeater1_ON = true;
   }
 
   if(tempf1 >= maxTemp || tempf2 >= maxTemp){
-    digitalWrite(HEAT1_PIN, LOW);
-    HEAT1_STATE = false;
+    digitalWrite(heater1_PIN, LOW);
+    isHeater1_ON = false;
   }
   */
   // check if time elasped 
@@ -357,7 +347,7 @@ void setStates()
   {
     // turn on cooling fan until temp is _____?
     // make sure heat is off 
-      HEAT1_STATE = false;
+      isHeater1_ON = false;
   }
   else
   {
@@ -367,9 +357,9 @@ void setStates()
 
 void takeAction()
 {
-  if(!HEAT1_STATE) // if HEAT1 should be OFF
+  if(!isHeater1_ON) // if HEAT1 should be OFF
   { 
-    digitalWrite(HEAT1_PIN, LOW); // turn off
+    digitalWrite(heater1_PIN, LOW); // turn off
     delay(1000); // allow time for pin to change
   }
 
