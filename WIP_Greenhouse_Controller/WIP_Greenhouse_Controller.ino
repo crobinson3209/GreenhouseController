@@ -85,10 +85,10 @@
 
 
 // ___RELAYs___
-  #define HEAT1_PIN 3
+  #define heater1_PIN 3
   #define circulatingFAN_PIN 4
   #define ventFAN_PIN 5
-  #define LIGHT1_PIN 6
+  #define light1_PIN 6
   
 //******************************
 
@@ -97,7 +97,7 @@
   float minTempF, setTempF, maxTempF, minTempC, maxTempC, setTempC;
   float minHum, setHum, maxHum;
   float g_dht1_hum, g_dht2_hum, g_dht1_tempc, g_dht2_tempc;
-  bool circulatingFAN_STATE, ventFAN_STATE, HEAT1_STATE, LIGHT1_STATE;
+  bool isCFan_ON, isVFan_ON, isHeater1_ON, isLight1_ON;
 //******************************
 
 
@@ -114,11 +114,6 @@ void setup()
   //******************************
 
 
-  //___LCD___
-    Serial.println(F("Initializing LCD..."));
-    lcd.init();  //initialize the lcd
-    lcd.backlight();  //open the backlight 
-  //******************************
 
 
   //___DHTs___
