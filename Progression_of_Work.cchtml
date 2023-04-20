@@ -26,33 +26,28 @@
                     code of unified sensor driver</a></li>
         </ul>
     </li>
-    <li>&nbsp;Use a Real-Time Clock (RTC) module to keep track of time</li>
+    <li>&nbsp;Write a sensor driver for the UV and light sensors using the
+        Adafruit Unified Sensor Driver framework</li>
 </ul>
 <p style="padding-left: 40px;">&nbsp;</p>
 <h2>Phase III</h2>
 <p>Project Should:</p>
 <ul>
     <li>Have all features from previous phases plus,</li>
+    <li>Use a Real-Time Clock (RTC) module to keep track of time</li>
     <li>Implement a datapoint class in which snapshots of all Sensor and State
         values are recorded, along with the time data was recorded</li>
     <li>Save datapoints to a rolling list that is saved to an SD card
         <ul>
             <li>Keep every timepoint of the day</li>
             <li>Keep every hour of each day for 7 days</li>
-            <li>keep every ave</li>
+            <li>keep every daily average and daily range, for all days in a
+                month</li>
         </ul>
     </li>
 </ul>
-<p style="padding-left: 40px;">&nbsp;</p>
-<p style="padding-left: 40px;">&nbsp;</p>
-<h2>Phase IV</h2>
-<p>Project Should:</p>
-<ul>
-    <li>Have all features from previous phases plus,</li>
-    <li>&nbsp;</li>
-</ul>
 <p>&nbsp;</p>
-<h2>Phase V - Advanced Features</h2>
+<h2>Phase IV - Advanced Features</h2>
 <p>Project Should:</p>
 <ul>
     <li>Have all features from previous phases plus,</li>

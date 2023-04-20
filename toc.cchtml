@@ -7,70 +7,77 @@
     <li><a href="Progression_of_Work.cchtml">Progression of Work</a></li>
 </ol>
 <h2>Resources</h2>
-<ol>
-    <li><a href="DataSheets">DataSheets</a>
-        <ol>
-            <li>Arduino Microcontroller
-                <ol>
-                    <li>Arduino Uno
-                        <ol>
-                            <li>Adafruit Link: <a
-                                    href="https://docs.arduino.cc/hardware/uno-rev3">https://docs.arduino.cc/hardware/uno-rev3</a>
-                            </li>
-                            <li><a href="ArduinoUnoR3_datasheet">Uno R3
-                                    datasheet</a></li>
-                            <li><a
-                                    href="ATmega328P_datasheet">ATmega328P_datasheet</a>
-                            </li>
-                        </ol>
+<p><a href="DataSheets">DataSheets</a></p>
+<ul>
+    <li>Arduino Microcontroller
+        <ul>
+            <li>Arduino Uno
+                <ul>
+                    <li><a href="https://docs.arduino.cc/hardware/uno-rev3">Adafruit
+                            Link</a></li>
+                    <li><a href="ArduinoUnoR3_datasheet">Uno R3 datasheet</a>
                     </li>
-                    <li>Arduino Mega
-                        <ol>
-                            <li>Adafruit Link: <a
-                                    href="https://docs.arduino.cc/hardware/mega-2560">https://docs.arduino.cc/hardware/mega-2560</a>
-                            </li>
-                            <li><a href="ArduinoMegaR3_datasheet">Mega R3
-                                    datasheet</a></li>
-                            <li><a href="ATmega2560_datasheet">ATmega2560
-                                    datasheet</a></li>
-                        </ol>
+                    <li><a href="ATmega328P_datasheet">ATmega328P_datasheet</a>
                     </li>
-                </ol>
+                </ul>
             </li>
-            <li>Sensors
-                <ol>
-                    <li>Temp &amp; Humidity Only&nbsp;<br>
-                        <ol>
-                            <li><a href="DHT22_datasheet">DHT22</a>
-                                <ol>
-                                    <li>specs</li>
-                                </ol>
-                            </li>
-                            <li><a href="DHT11_datasheet">DHT11</a>
-                                <ol>
-                                    <li>specs</li>
-                                </ol>
-                            </li>
-                        </ol>
+            <li>Arduino Mega
+                <ul>
+                    <li><a href="https://docs.arduino.cc/hardware/mega-2560">Adafruit
+                            Link</a></li>
+                    <li><a href="ArduinoMegaR3_datasheet">Mega R3 datasheet</a>
                     </li>
-                    <li>Temp, Humidity, and Barometric Pressure
-                        <ol>
-                            <li><a href="BME280_datasheet">BME280</a><br>
-                                <ol>
-                                    <li>specs</li>
-                                </ol>
-                            </li>
-                        </ol>
+                    <li><a href="ATmega2560_datasheet">ATmega2560 datasheet</a>
                     </li>
-                </ol>
+                </ul>
             </li>
-            <li>Other Hardware
-                <ol>
-                    <li>text here</li>
-                </ol>
-            </li>
-        </ol>
+        </ul>
     </li>
-    <li>Schematics</li>
+    <li>Sensors
+        <ul>
+            <li>Temp &amp; Humidity Only&nbsp;
+                <ul>
+                    <li><a href="DHT22_datasheet">DHT22</a>
+                        <ul>
+                            <li>specs</li>
+                        </ul>
+                    </li>
+                    <li><a href="DHT11_datasheet">DHT11</a>
+                        <ul>
+                            <li>specs</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Temp, Humidity, and Barometric Pressure
+                <ul>
+                    <li><a href="BME280_datasheet">BME280</a>
+                        <ul>
+                            <li>specs</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Light Sensing
+                <ul>
+                    <li>sensor type
+                        <ul>
+                            <li>specs</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>Other Hardware
+        <ul>
+            <li>text here</li>
+        </ul>
+    </li>
+</ul>
+<p>Schematics</p>
+<ul>
     <li>text here</li>
-</ol>
+</ul>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
