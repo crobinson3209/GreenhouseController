@@ -38,10 +38,11 @@
 //_____________________________________________________________________________
 
 
-// ___Libraries___
-  // on the use of "xxx.h" versus <xxx.h>:
-      // < > : forces compiler to search default #include directory
-      // " " : tells compiler to search current working directory, then default directory if first search fails
+// <p><em><strong>Libraries</strong></em></p>
+  // <p>on the use of "xxx.h" versus &lt;xxx.h&gt;:</p>
+      // <p>&lt; &gt; : forces compiler to search default #include directory,
+      //     whereas quotes (" ") : tells compiler to search current working
+      //     directory, then default directory if first search fails</p>
   #include "Wire.h"
   #include "SPI.h"
   #include "Adafruit_Sensor.h"
@@ -53,13 +54,13 @@
 //******************************
 
 
-// ____DHTs____
-  // set up DHT1
+// <p><strong><strong>DHTs</strong></strong></p>
+  // <p>set up DHT1</p>
   #define DHT1_PIN 12     // Digital pin connected to the DHT sensor    MEGA:12 / UNO:
   #define DHT1_TYPE DHT22   // DHT 22  (AM2302), AM2321    
   DHT_Unified dht1(DHT1_PIN, DHT1_TYPE); // Initialize DHT sensor 1
 
-  // set up DHT2
+  // <p>set up DHT2</p>
   #define DHT2_PIN 13     // Digital pin connected to the DHT sensor    MEGA:13 / UNO:
   #define DHT2_TYPE DHT22   // DHT 22  (AM2302), AM2321    
   DHT_Unified dht2(DHT2_PIN, DHT2_TYPE); // Initialize DHT sensor 2
@@ -71,19 +72,22 @@
   bool dht1_hum_success = false;
   bool dht2_temp_success = false;
   bool dht2_hum_success = false;
-  bool bme_temp_success = false;
-  bool bme_hum_success = false;
-  bool bme_pressure_success = false;
+
 //******************************
 
-// ___BME280___
+// <p><em><strong>BME280</strong></em></p>
   Adafruit_BME280 bme; // use I2C interface
   Adafruit_Sensor *bme_temp = bme.getTemperatureSensor();
   Adafruit_Sensor *bme_pressure = bme.getPressureSensor();
   Adafruit_Sensor *bme_humidity = bme.getHumiditySensor();
 
+  bool bme_temp_success = false;
+  bool bme_hum_success = false;
+  bool bme_pressure_success = false;
+  
+//******************************
 
-// ___RELAYs___
+// <p><em><strong>RELAYs</strong></em></p>
   #define heater1_PIN 3
   #define circulatingFAN_PIN 4
   #define ventFAN_PIN 5
@@ -93,7 +97,7 @@
 //******************************
 
 
-// ___Global Variables___
+// <p><em><strong>Global Variables</strong></em></p>
   float g_minTempF, g_setTempF, g_maxTempF, g_minTempC, g_maxTempC, g_setTempC;
   float g_minHum, g_setHum, g_maxHum;
   float g_dht1_hum, g_dht2_hum, g_dht1_tempc, g_dht2_tempc;
@@ -113,7 +117,7 @@
 
 void setup() 
 {
-  // Startup delay and Serial begin  
+  // <p>Startup delay and Serial begin</p>
     delay(3000); // power-up safety delay
     Serial.begin(9600);
   //******************************
@@ -122,13 +126,14 @@ void setup()
   //___DHTs___
     Serial.println(F("Initializing DHT sensors 1 & 2..."));
 
-    // initialize dht sensors and create sensor objects from unified Adafruit_Sensor library
+    // <p>initialize dht sensors and create sensor objects from unified
+    //     Adafruit_Sensor library</p>
       dht1.begin(); //initiallize dht1
       sensor_t sensor_dht1; // create sensor object for dht1
       dht2.begin(); //initialize dht2
       sensor_t sensor_dht2; // create sensor object for dht2
 
-    // get sensor data
+    // <p>get sensor data</p>
       dht1.temperature().getSensor(&sensor_dht1);
       dht1.humidity().getSensor(&sensor_dht1);
       dht2.temperature().getSensor(&sensor_dht2);
@@ -137,7 +142,7 @@ void setup()
       dht1_delayMS = sensor_dht1.min_delay / 1000; // set delay between sensor readings based on sensor details
       dht2_delayMS = sensor_dht2.min_delay / 1000; // set delay between sensor readings based on sensor details
 
-    // print the sensor data retrieved above
+    // <p>print the sensor data retrieved above</p>
         Serial.println(F("------------------------------------"));
         Serial.println(F("DHT Sensor #1:"));
         Serial.println(F("Temperature Sensor"));
@@ -175,7 +180,7 @@ void setup()
         Serial.println(F("------------------------------------"));   
   //******************************
 
-  // BME280 Setup
+  // <p>BME280 Setup</p>
     if ( !bme.begin() ) 
     {
       Serial.println(F("Could not find a valid BME280 sensor, check wiring!"));
@@ -198,8 +203,9 @@ void setup()
   //******************************
 
 
-  // Set Environmental Parameter SetPoints (hard-coded now, TODO: make editable with menu on LCD)
-    // Temperature
+  // <p>Set Environmental Parameter SetPoints (hard-coded now, TODO: make
+  //     editable via a TestMode)</p>
+    // <p>Temperature</p>
       g_minTempF = 50;
       g_maxTempF = 90;
       g_setTempF = 75;
@@ -208,12 +214,12 @@ void setup()
       g_maxTempC = (g_maxTempF - 32) * (5/9);
       g_setTempC = (g_setTempF - 32) * (5/9);
       
-    // Humidity, in percent
+    // <p>Humidity, in percent</p>
       g_minHum = 65;
       g_maxHum = 85;
       g_setHum = 75;
       
-    // States
+    // <p>States</p>
       isCFan_ON = false;
       isVFan_ON = false;
       isHeater1_ON = false;
@@ -228,14 +234,16 @@ void setup()
 
 void loop() 
 {
-
-  if (!isInTestMode) 
-    { readSensors(); }
-  else { getTestInputsFromSerial(); }
+  if (isInTestMode) 
+    { getTestInputsFromSerial(); }
+  else { readSensors(); }
 
   getAvgAndDifferential();
+  
   setStates();
+  
   takeAction();
+  
   //logData()
 
   printAll();
@@ -271,7 +279,7 @@ void getTestInputsFromSerial()
         switch (menuSelect) 
         {
           case 1:
-            // outside temperature from dht #2
+            // <p>outside temperature from dht #2</p>
             Serial.print(F("Input desired Outside Temperature (dht #2): "));
             while (Serial.available() == 0) {}
             g_dht2_tempc = Serial.parseFloat();
@@ -279,7 +287,7 @@ void getTestInputsFromSerial()
             break;
       
           case 2:
-            // outside humidity from dht #2
+            // <p>outside humidity from dht #2</p>
             Serial.print(F("Input desired Outside Humidity (dht #2): "));
             while (Serial.available() == 0) {}
             g_dht2_hum = Serial.parseFloat();
@@ -287,7 +295,7 @@ void getTestInputsFromSerial()
             break;
       
           case 3:
-            // inside temperature from dht #1
+            // <p>inside temperature from dht #1</p>
             Serial.print(F("Input desired Inside Temperature (dht #1): "));
             while (Serial.available() == 0) {}
             g_dht1_tempc = Serial.parseFloat();
@@ -295,7 +303,7 @@ void getTestInputsFromSerial()
             break;
       
           case 4:
-            // inside humidity from dht #1
+            // <p>inside humidity from dht #1</p>
             Serial.print(F("Input desired Inside Humidity (dht #1): "));
             while (Serial.available() == 0) {}
             g_dht1_hum = Serial.parseFloat();
@@ -303,7 +311,7 @@ void getTestInputsFromSerial()
             break;
       
           case 5: 
-            // inside temperature from bme
+            // <p>inside temperature from bme</p>
             Serial.print(F("Input desired Inside Temperature (bme): "));
             while (Serial.available() == 0) {}
             g_bme_tempc = Serial.parseFloat();
@@ -311,7 +319,7 @@ void getTestInputsFromSerial()
             break;
       
           case 6:
-            // inside humidity from bme
+            // <p>inside humidity from bme</p>
             Serial.print(F("Input desired Inside Humidity (bme): "));
             while (Serial.available() == 0) {}
             g_bme_hum = Serial.parseFloat();
@@ -335,23 +343,25 @@ void readSensors()
   readDHTs(); // read temp and humidity from DHT22 sensors
   readBME280s(); // read temp, humidity, and pressure from BME280 sensors
   readLights(); // read light level
-  // readSoilMoisture();
+  // <p>readSoilMoisture();</p>
 }
 
 
 void readDHTs()
 {
-  //  if(updateDHTs(); // updateDHT values if time since last update > 2sec
-    // Reading temperature or humidity takes about 250 milliseconds!
-    // Sensor readings may also be up to 2 seconds 'old' (it's a very slow sensor)
+  // <p>if(updateDHTs(); // updateDHT values if time since last update &gt; 2sec
+  // </p>
+    // <p>Reading temperature or humidity takes about 250 milliseconds! Sensor
+    //     readings may also be up to 2 seconds 'old' (it's a very slow sensor)
+    // </p>
     delay(dht1_delayMS);
 
-  // get temp and humidity events
+  // <p>get temp and humidity events</p>
     sensors_event_t event_dht1;
     sensors_event_t event_dht2;
 
-  // read DHTs and set booleans for successful read
-    // DHT1
+  // <p>read DHTs and set booleans for successful read</p>
+    // <p>DHT1</p>
     dht1.temperature().getEvent(&event_dht1);
       if (isnan(event_dht1.temperature)) 
       {
@@ -377,7 +387,7 @@ void readDHTs()
         g_dht1_hum = event_dht1.relative_humidity;
       }
       
-    // DHT2
+    // <p>DHT2</p>
     dht2.temperature().getEvent(&event_dht2);
       if (isnan(event_dht2.temperature)) 
       {
@@ -451,48 +461,48 @@ void readBME280s()
 
 void readLights()
 {
-  // nothing here yet
+  // <p>nothing here yet</p>
 }
 
 
 void getAvgAndDifferential()
 {
-  // calculate avg and differential for outdoor temperature
+  // <p>calculate avg and differential for outdoor temperature</p>
       g_outsideTempAvg = (g_dht2_tempc);
       g_outsideTempDiff = 0;
       
-  // calculate avg and differential for indoor humidity
+  // <p>calculate avg and differential for indoor humidity</p>
       g_outsideHumAvg = (g_dht2_hum);
       g_outsideHumDiff = 0;
   
-  // calculate avg and differential for indoor temperature
+  // <p>calculate avg and differential for indoor temperature</p>
       g_insideTempAvg = (g_dht1_tempc + g_bme_tempc) / 2;
       g_insideTempDiff = abs(g_dht1_tempc - g_bme_tempc);
       
-  // calculate avg and differential for indoor humidity
+  // <p>calculate avg and differential for indoor humidity</p>
       g_insideHumAvg = (g_dht1_hum + g_bme_hum) / 2;
       g_insideHumDiff = abs(g_dht1_hum - g_bme_hum);
 }
 
 void setStates()
 {
-  // set status of heater
+  // <p>set status of heater</p>
     if( g_insideTempAvg >= (g_minTempC + 10) && (g_outsideTempAvg >= g_minTempC) )
       { isHeater1_ON = false; }
     else { isHeater1_ON = true; }
 
-  // set status of ventilation fan  
+  // <p>set status of ventilation fan</p>
     if ( (g_insideTempAvg >= g_outsideTempAvg) && (g_outsideTempAvg <= g_setTempC) )
       { }
 
-  // set circulating fan status
+  // <p>set circulating fan status</p>
     if( (g_insideTempDiff >= 7.0) || (g_insideHumDiff >= 5.0) )
     {
       isCFan_ON = true;
     }
     else { isCFan_ON = false; }
 
-  // set ventilating fan status
+  // <p>set ventilating fan status</p>
    
 }
 
@@ -515,17 +525,9 @@ void takeAction()
 
 void printAll()
 { 
-/*
-  Serial.print(F("TimePoint: "));
-  Serial.print(currentTIME.hour(), DEC);
-  Serial.print(':');
-  Serial.print(currentTIME.minute(), DEC);
-  Serial.print(':');
-  Serial.print(currentTIME.second(), DEC);
-  Serial.println();
-*/
-  // Print DHT Sensor Values
-    // from DHT1
+/* */
+  // <p>Print DHT Sensor Values</p>
+    // <p>from DHT1</p>
     if (dht1_temp_success && dht1_hum_success)
     {
       Serial.print(F("DHT1 Temperature: "));
@@ -537,7 +539,7 @@ void printAll()
     }
     else { Serial.println(F("Error with DHT1 sensor!")); }
 
-    // from DHT2
+    // <p>from DHT2</p>
     if (dht2_temp_success && dht2_hum_success)
     {
       Serial.print(F("DHT2 Temperature: "));
@@ -549,7 +551,7 @@ void printAll()
     }
     else { Serial.println(F("Error with DHT2 sensor!")); }
         
-  // Print BME280 Sensor Values
+  // <p>Print BME280 Sensor Values</p>
     if (bme_temp_success)
     {
       Serial.print(F("Temperature = "));

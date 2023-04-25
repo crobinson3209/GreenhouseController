@@ -1,10 +1,14 @@
-<h1>New project template</h1>
-<p>This file provides a table of contents for a CodeChat Editor project.</p>
+<p>&nbsp;</p>
 <h2>Contents</h2>
 <ol>
     <li><a href="toc.cchtml">Table of Contents</a></li>
     <li><a href="README.cchtml">ReadMe</a></li>
     <li><a href="Progression_of_Work.cchtml">Progression of Work</a></li>
+    <li><a
+            href="WIP_Greenhouse_Controller/WIP_Greenhouse_Controller.ino">WIP_Greenhouse_Controller.ino</a>
+    </li>
+    <li><a href="DataSheets">Datasheets</a></li>
+    <li><a href="Images/Schematic.png">Schematic</a></li>
 </ol>
 <h2>Resources</h2>
 <p><a href="DataSheets">DataSheets</a></p>
@@ -37,47 +41,35 @@
         <ul>
             <li>Temp &amp; Humidity Only&nbsp;
                 <ul>
-                    <li><a href="DHT22_datasheet">DHT22</a>
+                    <li><a href="DHT22_datasheet">DHT22</a><br>
                         <ul>
-                            <li>specs</li>
-                        </ul>
-                    </li>
-                    <li><a href="DHT11_datasheet">DHT11</a>
-                        <ul>
-                            <li>specs</li>
+                            <li>Alternative: <a
+                                    href="DHT11_datasheet">DHT11</a> (lesser
+                                specs, not well suited for greenhouse)</li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li>Temp, Humidity, and Barometric Pressure
                 <ul>
-                    <li><a href="BME280_datasheet">BME280</a>
-                        <ul>
-                            <li>specs</li>
-                        </ul>
-                    </li>
+                    <li><a href="BME280_datasheet">BME280</a></li>
                 </ul>
             </li>
             <li>Light Sensing
                 <ul>
-                    <li>sensor type
-                        <ul>
-                            <li>specs</li>
-                        </ul>
+                    <li>Lux - <a href="TSL2561-lux_datasheet.pdf">TSL2561</a>
+                    </li>
+                    <li>UV - <a
+                            href="LTR390-uv-sensor_datasheet.pdf">LTR390</a>
                     </li>
                 </ul>
             </li>
-        </ul>
-    </li>
-    <li>Other Hardware
-        <ul>
-            <li>text here</li>
         </ul>
     </li>
 </ul>
 <p>Schematics</p>
 <ul>
-    <li>text here</li>
+    <li><a href="Schematic.png">Fritzing Image</a></li>
 </ul>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
